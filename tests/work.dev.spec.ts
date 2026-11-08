@@ -19,9 +19,10 @@ for (const slug of slugs) {
     await page.goto(`/work/${slug}/`);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByText(/draft: not published/i)).toBeVisible();
-    for (const h of ['The problem', 'Constraints', 'What I built', 'Outcome']) {
+    for (const h of ['The problem', 'Constraints', 'Outcome']) {
       await expect(page.getByRole('heading', { level: 2, name: h })).toBeVisible();
     }
+    await expect(page.getByRole('heading', { level: 2, name: /^What (I|we) built$/ })).toBeVisible();
     await page.getByRole('link', { name: /back to home/i }).click();
     await expect(page).toHaveURL(/\/(#work)?$/);
   });

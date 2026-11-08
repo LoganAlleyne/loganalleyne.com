@@ -17,9 +17,9 @@ Two parts of the business must never be quietly wrong: whether a structure on a 
 - Pricing policy (margins, markups, carriage and exchange rates) is set by the business and changes every year, but the arithmetic must not change with it.
 - Both engines are used by more than one application, so they can't depend on any one application's database or framework.
 
-## What I built
+## What we built
 
-I built both as framework-free PHP packages: no Laravel, no database, no HTTP. Everything they need is passed in, and every result is plain data. Architecture tests hold the boundary, so framework code can't creep in.
+We built both as framework-free PHP packages: no Laravel, no database, no HTTP. Everything they need is passed in, and every result is plain data. Architecture tests hold the boundary, so framework code can't creep in.
 
 **The structural calculation engine**
 

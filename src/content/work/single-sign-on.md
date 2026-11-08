@@ -18,9 +18,9 @@ Every FrameTech application lives on its own subdomain. Without a shared identit
 - Each application should carry as little sign-in code as possible, because every copy is something else to secure.
 - Teams matter: most records belong to a team, and people must only see their own team's work.
 
-## What I built
+## What we built
 
-I built single sign-on across every subdomain, through a central portal that is the only application with a sign-in.
+We built single sign-on across every subdomain, through a central portal that is the only application with a sign-in.
 
 - **Passkeys first.** Passkeys (WebAuthn) are the main way to sign in. Magic links are the fallback and recovery route, and are never blocked, so nobody is locked out by a lost device. The passkey ceremony runs only on the portal.
 - **One session for every subdomain.** The session lives in a shared store with a cookie scoped to the parent domain, so every application sees the same signed-in person. Anyone who isn't signed in is sent to the portal and brought back to the page they asked for.

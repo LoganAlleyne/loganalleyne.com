@@ -17,9 +17,9 @@ The suite uses several paid APIs: address lookup, geocoding, place search, addre
 - Developers needed to keep building and testing those features without spending money by accident.
 - The fix had to live in one place, because many applications use these lookups.
 
-## What I built
+## What we built
 
-All of the location services sit behind one shared package with a small contract for each kind of lookup, so applications never call a provider directly. After the incident, I added caching, a circuit breaker, usage gates and logging. Together with the shape of the contracts, they make a five-layer safety model.
+All of the location services sit behind one shared package with a small contract for each kind of lookup, so applications never call a provider directly. After the incident, we added caching, a circuit breaker, usage gates and logging. Together with the shape of the contracts, they make a five-layer safety model.
 
 - **Contract shape.** The address lookup has a free "find suggestions" step and a separate paid "retrieve the full address" step. An earlier single method did both, which left applications with no control over when the paid call happened.
 - **Caching.** Results are cached, with a lifetime suited to each kind of data. Weather, for example, caches current conditions for 30 minutes and forecasts for 3 hours.
