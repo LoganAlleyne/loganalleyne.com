@@ -1,0 +1,44 @@
+---
+import { profile, contact, facts } from '../content/profile';
+---
+
+<section class="pt-10 pb-8 sm:pt-14" aria-labelledby="intro-heading">
+  <div class="panel p-5 sm:p-6">
+    <div class="mb-4 flex gap-1.5" aria-hidden="true">
+      <i class="block size-2.5 rounded-full bg-line"></i><i class="block size-2.5 rounded-full bg-line"></i><i class="block size-2.5 rounded-full bg-line"></i>
+    </div>
+    <p class="font-mono text-sm text-acc" aria-hidden="true">~ $ <span class="typed">whoami</span></p>
+    <h1 id="intro-heading" class="mt-1.5 mb-3 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+      Logan <span class="grad-text">Alleyne</span>
+    </h1>
+    <p class="text-lg sm:text-xl">{profile.role}: {profile.stack}.</p>
+    <p class="mt-2 max-w-[62ch] text-mute">{profile.summary}</p>
+    <p class="mt-4 font-mono text-sm text-acc" aria-hidden="true">~ $ <span class="cursor"></span></p>
+  </div>
+
+  <ul class="mt-4 flex flex-wrap gap-2.5 font-mono text-sm">
+    <li>
+      <a href={profile.cv} class="inline-block rounded-md px-3.5 py-2 text-white no-underline" style="background: var(--btn)" download>↓ Download CV</a>
+    </li>
+    {
+      contact.map((c) => (
+        <li>
+          <a href={c.href} class="inline-block rounded-md border border-line px-3.5 py-2 no-underline hover:border-acc">
+            {c.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <ul aria-label="Headline facts" class="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-5">
+    {
+      facts.map((f, i) => (
+        <li class:list={['bg-panel px-3.5 py-3', i === facts.length - 1 && 'col-span-2 sm:col-span-1']}>
+          <span class="block font-mono text-xl">{f.value}</span>
+          <span class="text-xs text-mute">{f.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

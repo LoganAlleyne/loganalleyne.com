@@ -1,0 +1,68 @@
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test.beforeEach(async ({ page }) => { await page.goto('/'); });
+
+test('introduces Logan', async ({ page }) => {
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Logan Alleyne');
+  await expect(page.getByText('Full-Stack Software Engineer', { exact: false }).first()).toBeVisible();
+  await expect(page.getByText(/London or remote/i).first()).toBeVisible();
+});
+
+test('shows headline facts from the CV', async ({ page }) => {
+  const facts = page.getByRole('list', { name: /headline facts/i });
+  for (const value of ['20+', '~40', '~£50m', '2', '93%']) {
+    await expect(facts.getByText(value, { exact: true })).toBeVisible();
+  }
+});
+
+test('lists roles in reverse chronological order', async ({ page }) => {
+  const roles = page.locator('#experience article h3');
+  await expect(roles).toHaveText([/Aspen Pumps/, /BrandStencil/, /ReedPop/, /The Edit_/]);
+});
+
+test('writes FrameTech as one word with capitals', async ({ page }) => {
+  const text = await page.locator('body').innerText();
+  expect(text).toContain('FrameTech');
+  expect(text).not.toMatch(/Frame Tech|Frametech|frametech/);
+});
+
+test('contact links point to the right places', async ({ page }) => {
+  const contact = page.locator('#contact');
+  await expect(contact.getByRole('link', { name: /email/i })).toHaveAttribute('href', 'mailto:hello@loganalleyne.com');
+  await expect(contact.getByRole('link', { name: /linkedin/i })).toHaveAttribute('href', 'https://www.linkedin.com/in/logan-alleyne-827797139/');
+  await expect(contact.getByRole('link', { name: /github/i })).toHaveAttribute('href', 'https://github.com/LoganAlleyne');
+});
+
+test('CV download is served', async ({ page, request }) => {
+  const link = page.getByRole('link', { name: /download cv/i }).first();
+  await expect(link).toHaveAttribute('href', '/logan-alleyne-cv.pdf');
+  const res = await request.get('/logan-alleyne-cv.pdf');
+  expect(res.status()).toBe(200);
+  expect(res.headers()['content-type']).toContain('pdf');
+});
+
+for (const theme of ['dark', 'light'] as const) {
+  test(`has no accessibility violations in ${theme} theme`, async ({ page }) => {
+    await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+    expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(', ')}`)).toEqual([]);
+  });
+}
+
+test('content is visible with reduced motion', async ({ browser }) => {
+  const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  await page.goto('http://localhost:4321/');
+  for (const id of ['experience', 'skills', 'contact']) {
+    await expect(page.locator(`#${id}`)).toBeVisible();
+    const opacity = await page.locator(`#${id}`).evaluate((el) => getComputedStyle(el).opacity);
+    expect(opacity).toBe('1');
+  }
+  await ctx.close();
+});
+
+test('content becomes visible after scrolling with motion allowed', async ({ page }) => {
+  await page.locator('#contact').scrollIntoViewIfNeeded();
+  await expect(page.locator('#contact')).toHaveCSS('opacity', '1', { timeout: 3000 });
+});

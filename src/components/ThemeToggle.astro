@@ -1,0 +1,27 @@
+<button
+  type="button"
+  id="theme-toggle"
+  class="rounded border border-line px-2 py-0.5 font-mono text-xs text-mute transition-colors hover:text-ink"
+  aria-label="Switch to light theme"
+>
+  <span aria-hidden="true">◐ <span data-theme-label>light</span></span>
+</button>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    var root = document.documentElement;
+    function sync() {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      btn.setAttribute('aria-label', 'Switch to ' + next + ' theme');
+      btn.querySelector('[data-theme-label]').textContent = next;
+    }
+    sync();
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      sync();
+    });
+  })();
+</script>

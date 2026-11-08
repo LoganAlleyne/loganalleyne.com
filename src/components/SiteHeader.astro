@@ -1,0 +1,24 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { getPublishedWork } from '../lib/work';
+
+const hasWork = (await getPublishedWork()).length > 0;
+const links = [
+  { href: '/#experience', label: 'experience' },
+  ...(hasWork ? [{ href: '/#work', label: 'work' }] : []),
+  { href: '/#skills', label: 'skills' },
+  { href: '/#contact', label: 'contact' },
+];
+---
+
+<header class="border-b border-line">
+  <div class="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3.5 font-mono text-sm sm:px-7">
+    <a href="/" class="no-underline">logan<span class="text-acc">@</span>alleyne</a>
+    <nav aria-label="Main" class="flex items-center gap-4">
+      <ul class="hidden gap-4 sm:flex">
+        {links.map((l) => <li><a href={l.href} class="text-mute no-underline hover:text-ink">{l.label}</a></li>)}
+      </ul>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

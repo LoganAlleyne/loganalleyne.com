@@ -1,0 +1,20 @@
+---
+import Section from './Section.astro';
+import { skills, profile } from '../content/profile';
+---
+
+<Section id="skills" command="cat skills.yml" title="Skills">
+  <dl class="grid gap-x-5 gap-y-2.5 sm:grid-cols-[11rem_1fr]">
+    {
+      skills.map((s) => (
+        <>
+          <dt class="font-mono text-xs text-acc sm:pt-1">
+            {s.key}:<span class="sr-only"> {s.label}</span>
+          </dt>
+          <dd class="mb-2 leading-relaxed sm:mb-0">{s.items}</dd>
+        </>
+      ))
+    }
+  </dl>
+  <p class="mt-8 max-w-[68ch] leading-relaxed text-mute">{profile.approach}</p>
+</Section>

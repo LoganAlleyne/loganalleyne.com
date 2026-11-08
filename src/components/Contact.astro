@@ -1,0 +1,25 @@
+---
+import Section from './Section.astro';
+import { contact, profile } from '../content/profile';
+---
+
+<Section id="contact" command="contact" title="Get in touch">
+  <p class="mb-4 max-w-[60ch] text-mute">Open to full-stack roles in London or remote. Email is the quickest way to reach me.</p>
+  <ul class="space-y-1">
+    {
+      contact.map((c) => (
+        <li>
+          <a href={c.href} class="inline-flex gap-3 py-1.5 no-underline hover:text-acc">
+            <span class="font-mono text-acc">{c.label} →</span>
+            <span>{c.display}</span>
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a href={profile.cv} class="inline-flex gap-3 py-1.5 no-underline hover:text-acc" download>
+        <span class="font-mono text-acc">cv →</span><span>Download CV (PDF)</span>
+      </a>
+    </li>
+  </ul>
+</Section>

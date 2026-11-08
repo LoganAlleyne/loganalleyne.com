@@ -1,0 +1,25 @@
+---
+import Section from './Section.astro';
+import { getPublishedWork } from '../lib/work';
+
+const work = await getPublishedWork();
+---
+
+{
+  work.length > 0 && (
+    <Section id="work" command="ls ./work" title="Selected work">
+      <ul class="grid gap-3 sm:grid-cols-3">
+        {work.map((w) => (
+          <li class="panel relative p-4 transition-colors hover:border-acc">
+            <p class="font-mono text-xs text-acc">{w.data.file}</p>
+            <h3 class="mt-2 mb-1.5 font-semibold">
+              <a href={`/work/${w.id}/`} class="no-underline after:absolute after:inset-0">{w.data.title}</a>
+            </h3>
+            <p class="text-sm text-mute">{w.data.summary}</p>
+            <p class="mt-3 font-mono text-[0.6875rem] text-mute">{w.data.tags.join(' · ')}</p>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  )
+}
