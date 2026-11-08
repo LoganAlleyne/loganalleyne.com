@@ -1,11 +1,17 @@
 import { test, expect } from '@playwright/test';
 
-const slugs = ['service-trust', 'built-for-failure', 'configurator'];
+const slugs = ['component-library', 'storage-gateway', 'domain-engines', 'single-sign-on', 'paid-api-safety'];
 
 test('dev shows work cards for drafts, in order', async ({ page }) => {
   await page.goto('/');
   const cards = page.locator('#work li h3');
-  await expect(cards).toHaveText([/Trust between services/, /Built for failure/, /3D configurator/]);
+  await expect(cards).toHaveText([
+    /component library/i,
+    /storage gateway/i,
+    /calculation and pricing engines/i,
+    /single sign-on/i,
+    /paid APIs/i,
+  ]);
 });
 
 for (const slug of slugs) {
