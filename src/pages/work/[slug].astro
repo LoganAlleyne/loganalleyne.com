@@ -1,0 +1,37 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPublishedWork, type WorkEntry } from '../../lib/work';
+
+export async function getStaticPaths() {
+  const work = await getPublishedWork();
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: WorkEntry;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={`${entry.data.title} · Logan Alleyne`} description={entry.data.summary}>
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-7 sm:py-14">
+    <a href="/#work" class="font-mono text-sm text-mute no-underline hover:text-acc">← Back to home</a>
+    {
+      entry.data.draft && (
+        <p class="mt-6 rounded border border-dashed border-acc px-3 py-2 font-mono text-xs text-acc">
+          Draft: not published. Visible in local development only.
+        </p>
+      )
+    }
+    <p class="cmd mt-8" aria-hidden="true"><b>$</b> cat work/{entry.data.file}</p>
+    <h1 class="mt-1 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{entry.data.title}</h1>
+    <p class="mt-3 text-lg text-mute">{entry.data.summary}</p>
+    <p class="mt-3 font-mono text-xs text-mute">{entry.data.tags.join(' · ')}</p>
+    <div class="prose-plain mt-6">
+      <Content />
+    </div>
+  </article>
+</Base>
