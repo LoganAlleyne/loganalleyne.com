@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Logan Alleyne CV</title>
+<!-- Generic CV for loganalleyne.com. Source of truth: cv-master.md. Rebuild with `npm run cv:pdf`. -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #2b2d7c; --blue: #1a6fd1; --cyan: #10b5ef; --ink: #1d2230; --muted: #56607a; --rule: #c9d3e3; }
+  @page { size: A4; margin: 12mm 0 13mm; }
+  @page :first { margin-top: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; font-size: 9.8pt; line-height: 1.4; color: var(--ink); margin: 0; }
+  header { background: linear-gradient(100deg, var(--navy) 0%, #2756b8 55%, var(--cyan) 100%); color: #fff; padding: 8mm 16mm 5mm; margin-bottom: 1mm; }
+  h1 { font-family: Raleway, sans-serif; font-weight: 300; font-size: 30pt; line-height: 1; margin: 0; letter-spacing: -0.5px; }
+  h1 span { color: #bfe9ff; }
+  h1 b { font-weight: 400; }
+  .headline { font-family: Raleway, sans-serif; font-size: 11.5pt; margin: 3px 0 7px; color: #e6f3ff; }
+  .contact { font-size: 9pt; color: #eaf4ff; }
+  .contact a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.45); }
+  main { padding: 0 16mm; }
+  h2 { font-family: Raleway, sans-serif; font-weight: 400; font-size: 15pt; color: var(--blue); margin: 11px 0 5px; display: flex; align-items: center; gap: 8px; break-after: avoid; }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); margin-top: 4px; }
+  h3 { font-family: Raleway, sans-serif; font-weight: 600; font-size: 11pt; margin: 12px 0 1px; color: var(--navy); }
+  h3 .org { color: var(--cyan); }
+  .meta { color: var(--muted); font-size: 8.9pt; margin-bottom: 3px; letter-spacing: .2px; }
+  h4 { margin: 6px 0 1px; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; font-size: 8.4pt; break-after: avoid; }
+  p { margin: 0 0 4px; }
+  ul { margin: 0 0 3px; padding-left: 13px; list-style: none; }
+  li { margin: 0 0 3px; position: relative; }
+  li::before { content: ""; position: absolute; left: -10px; top: .62em; width: 4px; height: 4px; border-radius: 50%; background: var(--cyan); }
+  .tech { font-size: 8.9pt; color: var(--muted); margin-top: 3px; }
+  .tech strong, .skills strong, .edu strong { color: var(--navy); }
+  .skills p { margin-bottom: 2px; }
+  .avoid { break-inside: avoid; }
+</style>
+</head>
+<body>
+<header>
+<h1><b>Logan</b> <span>Alleyne</span></h1>
+<div class="headline">Full-Stack Software Engineer · PHP / Laravel · Python · Vue / TypeScript</div>
+<div class="contact">London · hello@loganalleyne.com · <a href="https://loganalleyne.com">loganalleyne.com</a> · <a href="https://www.linkedin.com/in/logan-alleyne-827797139/">linkedin.com/in/logan-alleyne-827797139</a> · <a href="https://github.com/LoganAlleyne">github.com/LoganAlleyne</a></div>
+</header>
+<main>
+
+<h2>Profile</h2>
+<p>Full-stack software engineer with six years in software development and a computer science degree focused on digital media. Over the last 18 months, as one of a two-person team, I have co-designed and built a suite of more than twenty Laravel applications and shared packages that runs an engineering business end to end, from enquiry to quote, sales, finance and reporting, for around 40 users and roughly £50m of business a year. I work across the whole stack: system architecture, service-to-service security, domain engines, CI/CD and hosting, and the interfaces people use every day.</p>
+<p>My background is front-end and UX, and it still shapes how I work: I care about interfaces that are clear and accessible, and about code the next developer can pick up without a guided tour. I write tests first, hold architectural boundaries with automated checks, and document decisions so a small team can move quickly without breaking things.</p>
+
+<h2>Experience</h2>
+
+<h3>Software Engineer <span class="org">· Aspen Pumps</span></h3>
+<div class="meta">June 2025 – Present</div>
+<p>Co-developer, in a team of two, of the FrameTech suite: web applications covering CRM, enquiries, projects, three engineering solution generators, sales and quoting, parts, finance, reporting, tasks, file storage and a helpdesk, each on its own subdomain with its own deploy and database. Built from the ground up for around 40 users and roughly £50m of business a year.</p>
+
+<h4>Architecture and platform</h4>
+<ul>
+  <li>Co-designed the suite architecture: bounded applications with strict data ownership and versioned REST APIs, with the same layering rules applied across 20+ repositories.</li>
+  <li>Built single sign-on across every subdomain, with passkeys (WebAuthn) as the primary sign-in, magic links as fallback, and role-based permissions with deny-by-default team scoping.</li>
+  <li>Designed and implemented service-to-service trust: HMAC-SHA256 request signing, replay protection (timestamp window and single-use nonce), acting-user propagation and centrally managed abilities, with secrets distributed and rotated by an administration service.</li>
+  <li>Built for failure: idempotency keys reserved in the same transaction as the write, queued work retried with backoff and dead-lettered on exhaustion, at-least-once event delivery by cursor, imports that checkpoint mid-stream, and queues separated by weight. SAP Business One and a legacy platform sit behind anti-corruption layers.</li>
+  <li>Built an append-only event log with rebuildable projections, and a storage gateway over S3-compatible storage with per-entity access control, presigned transfers and virus scanning.</li>
+</ul>
+
+<h4>Shared packages and domain engines</h4>
+<ul>
+  <li>Co-authored around twenty private Composer packages, including a shared component library and design-token system used by every app, and a client-package pattern (contracts, readonly DTOs, signed HTTP client, in-memory fake) so apps are built and tested before a service is live.</li>
+  <li>Built framework-free domain engines held in place by architecture tests: a structural calculation engine (Eurocode cross-section, wind, snow and stability verification), a port-based assembly model and a policy-driven pricing engine.</li>
+</ul>
+
+<h4>Product and interface</h4>
+<ul>
+  <li>Reworked and substantially evolved the business's 3D configurator for rooftop support structures: Vue 3, TypeScript, Pinia, Three.js and Konva, brought onto the platform's shared sign-in, services and design system, with structural verification on the new engine and DXF CAD output.</li>
+  <li>Delivered user-facing apps in Livewire, Volt and Flux Pro on a mobile-first design system, with live notices over websockets, maps and full-text search.</li>
+  <li>Use Python in engineering pipelines: server-side drawing renders (trimesh, numpy, pillow), CAD conversion with cadquery and Blender, and numpy reference implementations that validate the calculation engine in CI. Integrated the Anthropic API for natural-language search and document reading.</li>
+</ul>
+
+<h4>Quality, delivery and documentation</h4>
+<ul>
+  <li>Work with AI-assisted development (Claude Code) daily inside a spec-first, test-first workflow, where every change passes the same gates as hand-written code.</li>
+  <li>TDD with Pest, PHPStan level 7, Pint and Rector, pre-commit gates and GitHub Actions CI with an 85% coverage floor and 93% average coverage, secret scanning and dependency audits. All work is reviewed through pull requests.</li>
+  <li>Support the live services: traced a silent SAP integration failure to swallowed 401 responses and made the client raise every transport error; after a paid-API cost incident, added caching, a circuit breaker, usage gates and logging.</li>
+  <li>Built continuous deployment to a mirrored staging environment and atomic production releases with rollback. Wrote and maintain the suite's 70+ page engineering playbook.</li>
+</ul>
+<div class="avoid">
+<p class="tech"><strong>Technology:</strong> PHP 8.5, Laravel 13, Livewire, Volt, Flux Pro, Alpine.js, Vue 3, TypeScript, Pinia, Three.js, Python, Tailwind CSS, Vite, MariaDB, Redis, Meilisearch, Laravel Reverb, Horizon, S3, ClamAV, Pest, PHPStan, GitHub Actions, Cloudflare</p>
+</div>
+
+<div class="avoid">
+<h3>Software Engineer – Technical Production Manager <span class="org">· BrandStencil</span></h3>
+<div class="meta">Hove · February 2021 – June 2025</div>
+<p>Charity-focused templating and brand-management SaaS, as part of a small team.</p>
+<ul>
+  <li>Led front-end development and design using Vue, Vanilla JS, Laravel Blade, SCSS and Tailwind CSS, with major improvements to UX and accessibility.</li>
+  <li>Contributed to back-end development with Laravel, Node.js and MySQL, in Docker, with AWS S3 for file storage. Agile team with monthly sprints and retrospectives.</li>
+  <li>Led development of templates (functionally micro-applications) using Laravel, YAML, SCSS and XPath, and introduced workflows that improved consistency, quality and delivery speed.</li>
+  <li>Managed template production: scheduling, estimating and quoting, hiring and managing temporary team members, and working directly with clients, QA and project managers.</li>
+</ul>
+<p class="tech"><strong>Technology:</strong> Vue, Vuex, JavaScript, Node.js, SCSS, Tailwind CSS, Laravel, PHP, REST, XPath, XML, YAML, Docker, AWS S3, MySQL</p>
+</div>
+
+<div class="avoid">
+<h3>Junior Product Developer <span class="org">· ReedPop</span></h3>
+<div class="meta">Brighton · July 2020 – December 2020</div>
+<p>Front-end developer across some of the largest video-game journalism sites in the world, including Eurogamer.net, RockPaperShotgun.com and VG247.com. Built features with Django templates, views and models in Docker-based development, and worked on the online-only event PAX x EGX.</p>
+</div>
+
+<div class="avoid">
+<h3>Technical Operator <span class="org">· The Edit_</span></h3>
+<div class="meta">Brighton · September 2019 – July 2020</div>
+<p>Assistant editing and technical support in television post-production, in a high-pressure, highly collaborative small team.</p>
+</div>
+
+<div class="avoid skills">
+<h2>Skills</h2>
+<p><strong>Back end:</strong> PHP 8.x, Laravel, Livewire, REST API design, Python, Node.js, MariaDB / MySQL, Redis, queues and scheduling, Meilisearch, websockets</p>
+<p><strong>Front end:</strong> TypeScript, JavaScript, Vue 3, Pinia, Nuxt, Alpine.js, Tailwind CSS, SCSS, Three.js, Konva, Vite, UI and UX, accessibility, responsive and multilingual interfaces</p>
+<p><strong>Architecture and security:</strong> service-oriented design, SOLID, domain-driven boundaries, event logs and projections, SSO, passkeys (WebAuthn), HMAC request signing, RBAC, anti-corruption layers</p>
+<p><strong>Quality and delivery:</strong> AI-assisted development (Claude Code), spec-first workflow, TDD, Pest, Vitest, PHPStan, architecture tests, GitHub Actions, CI/CD, atomic deploys, ADRs, technical writing</p>
+<p><strong>Tools:</strong> Git, GitHub, Docker, Postman, Adobe Creative Cloud (Illustrator, Photoshop, InDesign)</p>
+</div>
+
+<div class="avoid edu">
+<h2>Education</h2>
+<p><strong>BSc (Hons) Computing for Digital Media</strong> · University of Sussex. Modules included Software Engineering, Data Structures and Algorithms, Human-Computer Interaction and Web 3D Applications.</p>
+<p><strong>BTEC Level 3 Extended Diploma in IT</strong></p>
+</div>
+
+</main>
+</body>
+</html>
