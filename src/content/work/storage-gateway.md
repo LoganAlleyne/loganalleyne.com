@@ -15,13 +15,13 @@ Many FrameTech applications need to store files: drawings, quotes, photos, docum
 
 - The object store is S3-compatible but can't send notifications when files change. A write that goes around the system can't be detected, so there could be only one writer, and its record of files had to be the truth rather than a copy of it.
 - Large files must not pass through the web application's own processes.
-- One file can belong to several things at once (a project, an engagement within it), in more than one language and in more than one version.
+- One file can belong to several records at once (a project, and one company's part in it), in more than one language and in more than one version.
 - Access depends on who owns the record a file belongs to, and that knowledge lives in other applications.
 - An uploaded file can't be assumed to be safe.
 
 ## What I built
 
-I created a storage gateway: the only service in the suite that holds the storage credentials. It sits on a framework-free storage engine, and every other application talks to it through a signed client package. The file-browsing application is just one more client.
+I created a storage gateway: the only service in the suite that holds the storage credentials. It sits on a framework-free storage engine. Every other application talks to it through a client package that signs each request, so the gateway always knows which application is asking. Even the suite's own file browser is just one more client.
 
 **The catalogue**
 
@@ -29,14 +29,14 @@ I created a storage gateway: the only service in the suite that holds the storag
 - **Stored procedures behind small contracts.** The engine reads and writes the catalogue through stored procedures, behind separate reader and writer contracts, with no ORM. The schema and procedures ship with the package and are applied by a sync command that is safe to rerun. A one-off data change records a marker so a later sync doesn't undo an administrator's choice.
 - **Files and versions are separate.** A file points at its current version, and a new upload adds a version rather than replacing one. The virus-scan verdict lives on the version, so a file is only as safe as its current version.
 - **Language isn't a version.** A file can record the language it's written in, so two language copies of the same document sit side by side for one record instead of one overwriting the other.
-- **Links, not folders, say what a file belongs to.** A file is linked to records in other applications by a reference those applications own. A file can carry more than one link, so an engagement's files belong to the engagement and its project without a schema change. Uploads can still carry a folder path, shown beneath the record without creating folder rows.
+- **Links, not folders, say what a file belongs to.** A file is linked to records in other applications by a reference those applications own. A file can carry more than one link, so a document for one company's part in a project belongs to both without a schema change. Uploads can still carry a folder path, shown beneath the record without creating folder rows.
 - **Questions asked in bulk.** Pages that show many records ask once which of them have files, and how many and how large, rather than once per record.
 
-**Working with the blobs**
+**Handling the file data (the blobs)**
 
 - **Presign, then commit.** A caller asks for an upload URL, sends the bytes straight to storage, then calls commit. The gateway checks type and size when it issues the URL, and can bind a SHA-256 checksum into the signature so storage itself rejects tampered bytes. At commit it checks the stored size and the store's own fingerprint of the object, and reads only the file's opening bytes, not the whole file, to confirm it matches its declared type. Commit is safe to repeat, and a file isn't live until it succeeds.
 - **Retries that don't corrupt uploads.** Transfers retry with backoff, but a retry rewinds the stream to the start before resending it. A stream that can't be rewound is sent once, because resending a half-read body would store a broken file.
-- **Keeping bucket and catalogue in step.** Because nothing can watch the bucket, two scheduled sweeps do it instead. Every fifteen minutes, uploads that were never committed are expired along with their bytes. Every day, the bucket is compared against the catalogue, and blobs with no record are queued for deletion one at a time, so a sweep that stops halfway can safely run again.
+- **Keeping bucket and catalogue in step.** Because nothing can watch the bucket, two scheduled sweeps do it instead. Every fifteen minutes, uploads that were never committed are expired along with their bytes. Every day, the bucket is compared against the catalogue, and stored files with no catalogue record are queued for deletion one at a time, so a sweep that stops halfway can safely run again.
 - **System documents that can't go missing.** Generated documents such as a finalised quote are stored by a queued job that caches its upload under a stable key, so a retry resumes the same upload instead of filing a duplicate.
 - **Buckets split by setting, not by owner.** Two or three buckets differ only in visibility, lifecycle and retention. Access is enforced by the gateway, never by which bucket a file is in.
 

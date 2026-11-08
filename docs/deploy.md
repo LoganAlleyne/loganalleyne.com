@@ -4,7 +4,7 @@
 
 - The live site is the old static site from the `LoganAlleyne/Portfolio-Redux` repository, served by Netlify. (The response headers say `server: Netlify`, the DNS is on Netlify's NS1 nameservers, and `www` 301-redirects to the bare domain.)
 - This repository is local only: it is not yet on GitHub, and Netlify does not know about it.
-- All five case studies are drafts. They do not appear in the production build until their `draft` flag is set to `false`.
+- All six case studies are drafts. They do not appear in the production build until their `draft` flag is set to `false`.
 
 ## The plan
 

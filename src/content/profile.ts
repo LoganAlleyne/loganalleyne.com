@@ -120,3 +120,6 @@ export const contact: Link[] = [
   { label: 'linkedin', href: 'https://www.linkedin.com/in/logan-alleyne-827797139/', display: 'in/logan-alleyne-827797139' },
   { label: 'github', href: 'https://github.com/LoganAlleyne', display: 'LoganAlleyne' },
 ];
+
+export const suiteContext =
+  'Part of the FrameTech suite: the web applications I co-developed at Aspen Pumps in a team of two.';

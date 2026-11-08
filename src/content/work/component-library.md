@@ -22,12 +22,12 @@ The FrameTech suite has 18 applications with a user interface, each with its own
 
 I own the library outright: its design, its code and its releases. It's a Laravel package of Blade and Livewire components, design tokens, CSS and fonts, and every application with a user interface requires it. Applications pick up improvements with a normal dependency update, without copying or publishing any views.
 
-- **Generic over records, without growing special cases.** The entity picker and the inline field editor know nothing about organisations, parts or projects. Each application registers a small lookup or field writer for each kind of record, so supporting a new record type means adding one class in the application, not editing the library.
+- **Generic over records, without growing special cases.** The component for choosing a record (a customer, a part, a project) and the one for editing a field in place know nothing about what those records are. Each application registers a small lookup or field writer for each kind of record, so supporting a new record type means adding one class in the application, not editing the library.
 - **Design tokens, not per-app styling.** Surfaces, text, status colours, spacing, radius, motion and type are tokens. Applications declare no colours at all: each one names itself, and the library supplies its accent colour for light and dark modes.
 - **A personal workspace that follows you.** A panel of sections (notes, favourites, recents, recent files, your projects, tasks, a calendar, the sales forecast) appears in every application. Each section is registered, and a person's arrangement of sections is remembered across the suite. When the service behind a section isn't available, that one section says so and the rest of the panel keeps working.
-- **Safety built into the components.** Address and place lookups call paid APIs, so the components themselves enforce a minimum query length, debouncing and locked values. An application using them can't weaken those safeguards.
-- **Made to be tested.** The library ships in-memory fakes for everything it reads, so an application can render the sidebar and workspace in its own tests without a live identity database or sibling services.
-- **Strict at the boundary.** Every concrete class is final and readonly with strict types, held to PHPStan level 7, and the library supports many languages.
+- **Safety built into the components.** Address and place lookups call paid APIs, so the components themselves won't search until enough has been typed and the typing has paused. An application using them can't weaken those safeguards.
+- **Made to be tested.** The library ships in-memory fakes for everything it reads, so an application can render the sidebar and workspace in its own tests without a real user database or any of the other applications running.
+- **Strict by default.** Every concrete class is final and readonly with strict types, held to PHPStan level 7, The library also supports many languages.
 
 ## Outcome
 
