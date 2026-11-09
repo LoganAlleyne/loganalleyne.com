@@ -3,21 +3,16 @@
 ## Where things stand
 
 - The live site is the old static site from the `LoganAlleyne/Portfolio-Redux` repository, served by Netlify. (The response headers say `server: Netlify`, the DNS is on Netlify's NS1 nameservers, and `www` 301-redirects to the bare domain.)
-- This repository is local only: it is not yet on GitHub, and Netlify does not know about it.
-- All six case studies are drafts. They do not appear in the production build until their `draft` flag is set to `false`.
+- This repository is on GitHub at `LoganAlleyne/loganalleyne.com`. Netlify does not build from it yet.
+- All six case studies are published. The `draft` flag still works for any new one: a draft shows under `astro dev` and stays out of the production build.
 
 ## The plan
 
 The goal is to swap what the existing Netlify site builds from, without touching the domain or DNS. Rolling back is then one click.
 
-### 1. Push the repository to GitHub
+### 1. Check CI on GitHub
 
-```bash
-cd ~/Documents/GitHub/loganalleyne.com
-gh repo create LoganAlleyne/loganalleyne.com --public --source . --push
-```
-
-Check that the CI workflow passes on `main` (type check plus the Playwright suite).
+The repository is already pushed. Check that the CI workflow passes on `main` (type check plus the Playwright suite).
 
 ### 2. Preview on a throwaway Netlify site first
 
@@ -59,15 +54,16 @@ Then run the page through PageSpeed Insights (the target is 95 or more in every 
 
 Keep the old site for a couple of weeks before deleting it.
 
-## Publishing a case study
+## Adding a case study
 
-1. Confirm with Aspen Pumps that it's fine to publish.
-2. Set `draft: false` in that file's front matter, in `src/content/work/`.
-3. Update `tests/build.spec.ts` if no drafts are left. Its first test expects at least one draft, so replace it with a test that asserts the published pages exist.
+1. Add a Markdown file to `src/content/work/` with `draft: true`, and check it under `npm run dev`.
+2. Add its slug and card title to `tests/work.dev.spec.ts`.
+3. When it's ready, set `draft: false`. `tests/build.spec.ts` then checks it is built, in the sitemap and passes the accessibility checks.
 4. Push. Netlify rebuilds on every push to `main`.
 
 ## Day to day
 
 - **Update the CV:** change `cv-master.md` first. Then update `src/content/profile.ts` and `scripts/cv/cv.html`, and run `npm run cv:pdf`.
 - **Social image:** `npm run og:image` after editing `scripts/og/og.html`.
+- **LinkedIn banner:** `npm run banner` after editing `scripts/banner/banner.html`. It writes `brand/linkedin-banner.png` (3168×792, twice LinkedIn's size).
 - **Netlify CLI:** the copy installed globally on this machine crashes under Node 25. The deploy plan above uses only the web interface and doesn't need it.

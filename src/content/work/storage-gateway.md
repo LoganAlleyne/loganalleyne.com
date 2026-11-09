@@ -4,7 +4,7 @@ file: storage-gateway.md
 summary: One door to S3-compatible storage for the whole suite, with a catalogue that is the single record of every file, direct uploads and a virus scan on every version.
 order: 2
 tags: [s3, mariadb, laravel, security]
-draft: true
+draft: false
 ---
 
 ## The problem

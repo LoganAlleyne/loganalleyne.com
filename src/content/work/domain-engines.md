@@ -4,7 +4,7 @@ file: domain-engines.md
 summary: Structural engineering and pricing as framework-free code, checked against independent Python reference implementations in CI.
 order: 3
 tags: [php, python, domain modelling]
-draft: true
+draft: false
 ---
 
 ## The problem

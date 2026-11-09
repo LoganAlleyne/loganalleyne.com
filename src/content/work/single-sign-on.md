@@ -4,7 +4,7 @@ file: single-sign-on.md
 summary: One account and one sign-in across every subdomain, with passkeys first and access that can be withdrawn instantly.
 order: 4
 tags: [webauthn, laravel, security]
-draft: true
+draft: false
 ---
 
 ## The problem

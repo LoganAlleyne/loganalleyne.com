@@ -4,7 +4,7 @@ file: paid-api-safety.md
 summary: What changed after a cost incident with paid address and mapping APIs, and why accidental paid traffic is now hard to cause.
 order: 5
 tags: [incident response, laravel, resilience]
-draft: true
+draft: false
 ---
 
 ## The problem

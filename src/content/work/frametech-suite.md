@@ -4,7 +4,7 @@ file: suite-overview.md
 summary: A suite of web applications built from the ground up by a team of two, one for each part of the business, that share one sign-in and one design and talk to each other only through signed APIs.
 order: 0
 tags: [architecture, laravel, apis]
-draft: true
+draft: false
 ---
 
 ## The problem

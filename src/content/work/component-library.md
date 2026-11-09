@@ -4,7 +4,7 @@ file: component-library.md
 summary: One shared interface library behind every FrameTech application, from page layout to a personal workspace that follows you between apps.
 order: 1
 tags: [laravel, livewire, design systems]
-draft: true
+draft: false
 ---
 
 ## The problem

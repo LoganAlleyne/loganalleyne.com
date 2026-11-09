@@ -5,7 +5,7 @@ const slugs = [
   'component-library', 'storage-gateway', 'domain-engines', 'single-sign-on', 'paid-api-safety',
 ];
 
-test('dev shows work cards for drafts, in order', async ({ page }) => {
+test('shows work cards in order', async ({ page }) => {
   await page.goto('/');
   const cards = page.locator('#work li h3');
   await expect(cards).toHaveText([
@@ -19,10 +19,9 @@ test('dev shows work cards for drafts, in order', async ({ page }) => {
 });
 
 for (const slug of slugs) {
-  test(`case study ${slug} renders with a draft banner and a way back`, async ({ page }) => {
+  test(`case study ${slug} renders with its sections and a way back`, async ({ page }) => {
     await page.goto(`/work/${slug}/`);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await expect(page.getByText(/draft: not published/i)).toBeVisible();
     for (const h of ['The problem', 'Constraints', 'Outcome']) {
       await expect(page.getByRole('heading', { level: 2, name: h })).toBeVisible();
     }
