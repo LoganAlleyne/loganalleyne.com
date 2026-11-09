@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { setTheme } from './support/theme';
 
 test.beforeEach(async ({ page }) => { await page.goto('/'); });
 
@@ -52,7 +53,7 @@ test('CV download is served', async ({ page, request }) => {
 
 for (const theme of ['dark', 'light'] as const) {
   test(`has no accessibility violations in ${theme} theme`, async ({ page }) => {
-    await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
+    await setTheme(page, theme);
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
     expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(', ')}`)).toEqual([]);
   });

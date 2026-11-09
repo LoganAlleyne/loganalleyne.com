@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { setTheme } from './support/theme';
 
 // Runs against the production build that the prod web server just produced.
 const dist = join(process.cwd(), 'dist');
@@ -41,9 +42,9 @@ test('published case studies pass WCAG 2.2 AA checks in both themes', async ({ b
   const ctx = await browser.newContext({ baseURL: 'http://localhost:4321', reducedMotion: 'reduce' });
   const page = await ctx.newPage();
   for (const slug of published) {
-    for (const theme of ['dark', 'light']) {
+    for (const theme of ['dark', 'light'] as const) {
       await page.goto(`/work/${slug}/`);
-      await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
+      await setTheme(page, theme);
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(', ')}`), `${slug} (${theme})`).toEqual([]);
     }
