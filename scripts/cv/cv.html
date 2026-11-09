@@ -4,50 +4,64 @@
 <meta charset="utf-8">
 <title>Logan Alleyne CV</title>
 <!-- Generic CV for loganalleyne.com. Source of truth: cv-master.md. Rebuild with `npm run cv:pdf`. -->
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --navy: #2b2d7c; --blue: #1a6fd1; --cyan: #10b5ef; --ink: #1d2230; --muted: #56607a; --rule: #c9d3e3; }
-  @page { size: A4; margin: 12mm 0 13mm; }
-  @page :first { margin-top: 0; }
+  /* Print version of the site's light theme. */
+  :root { --bg: #ffffff; --panel: #f6f8fc; --line: #dde3f0; --ink: #12142e; --mute: #4a5373; --acc: #1560b8; --grad: linear-gradient(90deg, #2b2d7c, #1a6fd1 60%, #0b7fae); }
+  @page { size: A4; margin: 11mm 0 12mm; }
   * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; font-size: 9.8pt; line-height: 1.4; color: var(--ink); margin: 0; }
-  header { background: linear-gradient(100deg, var(--navy) 0%, #2756b8 55%, var(--cyan) 100%); color: #fff; padding: 8mm 16mm 5mm; margin-bottom: 1mm; }
-  h1 { font-family: Raleway, sans-serif; font-weight: 300; font-size: 30pt; line-height: 1; margin: 0; letter-spacing: -0.5px; }
-  h1 span { color: #bfe9ff; }
-  h1 b { font-weight: 400; }
-  .headline { font-family: Raleway, sans-serif; font-size: 11.5pt; margin: 3px 0 7px; color: #e6f3ff; }
-  .contact { font-size: 9pt; color: #eaf4ff; }
-  .contact a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.45); }
-  main { padding: 0 16mm; }
-  h2 { font-family: Raleway, sans-serif; font-weight: 400; font-size: 15pt; color: var(--blue); margin: 11px 0 5px; display: flex; align-items: center; gap: 8px; break-after: avoid; }
-  h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); margin-top: 4px; }
-  h3 { font-family: Raleway, sans-serif; font-weight: 600; font-size: 11pt; margin: 12px 0 1px; color: var(--navy); }
-  h3 .org { color: var(--cyan); }
-  .meta { color: var(--muted); font-size: 8.9pt; margin-bottom: 3px; letter-spacing: .2px; }
-  h4 { margin: 6px 0 1px; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; font-size: 8.4pt; break-after: avoid; }
-  p { margin: 0 0 4px; }
-  ul { margin: 0 0 3px; padding-left: 13px; list-style: none; }
-  li { margin: 0 0 3px; position: relative; }
-  li::before { content: ""; position: absolute; left: -10px; top: .62em; width: 4px; height: 4px; border-radius: 50%; background: var(--cyan); }
-  .tech { font-size: 8.9pt; color: var(--muted); margin-top: 3px; }
-  .tech strong, .skills strong, .edu strong { color: var(--navy); }
-  .skills p { margin-bottom: 2px; }
+  body { font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; font-size: 9.4pt; line-height: 1.36; color: var(--ink); background: var(--bg); margin: 0; }
+  .mono, .cmd, .meta, h4, .prompt, .contact, .skills dt { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  header { margin: 0 15mm 2mm; padding: 4.5mm 5.5mm 4mm; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+  .dots { display: flex; gap: 4px; margin-bottom: 2.5mm; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }
+  .prompt { color: var(--acc); font-size: 8.4pt; margin: 0 0 1mm; }
+  h1 { font-family: Raleway, sans-serif; font-weight: 800; font-size: 26pt; line-height: 1.05; letter-spacing: -0.5px; margin: 0 0 1.5mm; }
+  h1 span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .headline { font-size: 11pt; margin: 0 0 2mm; }
+  .contact { font-size: 7.3pt; white-space: nowrap; color: var(--mute); }
+  .contact a { color: var(--acc); text-decoration: none; }
+  main { padding: 0 15mm; }
+  .sec { border-top: 1px solid var(--line); margin-top: 3mm; padding-top: 2mm; }
+  .cmd { font-size: 7.8pt; color: var(--mute); margin: 0; break-after: avoid; }
+  .cmd b { color: var(--acc); font-weight: 400; }
+  h2 { font-family: Raleway, sans-serif; font-weight: 700; font-size: 14pt; margin: 0.5mm 0 1.5mm; break-after: avoid; }
+  h3 { font-weight: 600; font-size: 10.8pt; margin: 2.6mm 0 0; break-after: avoid; }
+  h3 .org { font-weight: 400; color: var(--mute); }
+  .meta { color: var(--mute); font-size: 7.8pt; margin: 0.3mm 0 1.2mm; }
+  .meta b { color: var(--acc); font-weight: 400; }
+  h4 { margin: 2mm 0 0.6mm; color: var(--acc); font-weight: 500; font-size: 7.8pt; break-after: avoid; }
+  h4::before { content: "// "; color: var(--mute); }
+  p { margin: 0 0 1.2mm; }
+  ul { margin: 0 0 1mm; padding-left: 4.2mm; list-style: none; }
+  li { margin: 0 0 0.6mm; position: relative; }
+  li::before { content: "\2192"; position: absolute; left: -4.2mm; color: var(--acc); font-family: "JetBrains Mono", monospace; font-size: 8pt; }
+  .tech { font-family: "JetBrains Mono", monospace; font-size: 7.6pt; color: var(--mute); margin-top: 1mm; }
+  .tech strong { color: var(--ink); font-weight: 500; }
+  .skills dl { display: grid; grid-template-columns: 24mm 1fr; gap: 0.6mm 3mm; margin: 0; }
+  .skills dt { color: var(--acc); font-size: 7.8pt; padding-top: 0.5mm; }
+  .skills dd { margin: 0; }
+  .edu strong { font-weight: 600; }
   .avoid { break-inside: avoid; }
 </style>
 </head>
 <body>
 <header>
-<h1><b>Logan</b> <span>Alleyne</span></h1>
-<div class="headline">Full-Stack Software Engineer · PHP / Laravel · Python · Vue / TypeScript</div>
-<div class="contact">London · hello@loganalleyne.com · <a href="https://loganalleyne.com">loganalleyne.com</a> · <a href="https://www.linkedin.com/in/logan-alleyne-827797139/">linkedin.com/in/logan-alleyne-827797139</a> · <a href="https://github.com/LoganAlleyne">github.com/LoganAlleyne</a></div>
+<div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+<p class="prompt" aria-hidden="true">~ $ whoami</p>
+<h1>Logan <span>Alleyne</span></h1>
+<div class="headline">Full-stack software engineer: PHP / Laravel · Python · Vue / TypeScript</div>
+<div class="contact">London · hello@loganalleyne.com · <a href="https://loganalleyne.com">loganalleyne.com</a> · <a href="https://www.linkedin.com/in/logan-alleyne-827797139/">in/logan-alleyne-827797139</a> · <a href="https://github.com/LoganAlleyne">github.com/LoganAlleyne</a></div>
 </header>
 <main>
 
-<h2>Profile</h2>
+<div class="sec"><p class="cmd" aria-hidden="true"><b>$</b> cat about.md</p>
+<h2>Profile</h2></div>
 <p>Full-stack software engineer with six years in software development and a computer science degree focused on digital media. Over the last 18 months, as one of a two-person team, I have co-designed and built a suite of more than twenty Laravel applications and shared packages that runs an engineering business end to end, from enquiry to quote, sales, finance and reporting, for around 40 users and roughly £50m of business a year. I work across the whole stack: system architecture, service-to-service security, domain engines, CI/CD and hosting, and the interfaces people use every day.</p>
 <p>I started out in front-end development and UX, and for the last two years I've worked across the whole stack, from architecture and security to the interfaces people use. That start still shapes how I work: I care about interfaces that are clear and accessible, and about code the next developer can pick up without a guided tour. I write tests first, hold architectural boundaries with automated checks, and document decisions so a small team can move quickly without breaking things.</p>
 
-<h2>Experience</h2>
+<div class="sec"><p class="cmd" aria-hidden="true"><b>$</b> git log --author=logan</p>
+<h2>Experience</h2></div>
 
 <h3>Software Engineer <span class="org">· Aspen Pumps</span></h3>
 <div class="meta">June 2025 – Present</div>
@@ -88,7 +102,7 @@
 
 <div class="avoid">
 <h3>Software Engineer – Technical Production Manager <span class="org">· BrandStencil</span></h3>
-<div class="meta">Hove · February 2021 – June 2025</div>
+<div class="meta">February 2021 – June 2025 · <b>Hove</b></div>
 <p>Charity-focused templating and brand-management SaaS, as part of a small team.</p>
 <ul>
   <li>Led front-end development and design using Vue, Vanilla JS, Laravel Blade, SCSS and Tailwind CSS, with major improvements to UX and accessibility.</li>
@@ -101,27 +115,31 @@
 
 <div class="avoid">
 <h3>Junior Product Developer <span class="org">· ReedPop</span></h3>
-<div class="meta">Brighton · July 2020 – December 2020</div>
+<div class="meta">July 2020 – December 2020 · <b>Brighton</b></div>
 <p>Front-end developer across some of the largest video-game journalism sites in the world, including Eurogamer.net, RockPaperShotgun.com and VG247.com. Built features with Django templates, views and models in Docker-based development, and worked on the online-only event PAX x EGX.</p>
 </div>
 
 <div class="avoid">
 <h3>Technical Operator <span class="org">· The Edit_</span></h3>
-<div class="meta">Brighton · September 2019 – July 2020</div>
+<div class="meta">September 2019 – July 2020 · <b>Brighton</b></div>
 <p>Assistant editing and technical support in television post-production, in a high-pressure, highly collaborative small team.</p>
 </div>
 
 <div class="avoid skills">
-<h2>Skills</h2>
-<p><strong>Back end:</strong> PHP 8.x, Laravel, Livewire, REST API design, Python, Node.js, MariaDB / MySQL, Redis, queues and scheduling, Meilisearch, websockets</p>
-<p><strong>Front end:</strong> TypeScript, JavaScript, Vue 3, Pinia, Nuxt, Alpine.js, Tailwind CSS, SCSS, Three.js, Konva, Vite, UI and UX, accessibility, responsive and multilingual interfaces</p>
-<p><strong>Architecture and security:</strong> service-oriented design, SOLID, domain-driven boundaries, event logs and projections, SSO, passkeys (WebAuthn), HMAC request signing, RBAC, anti-corruption layers</p>
-<p><strong>Quality and delivery:</strong> AI-assisted development (Claude Code), spec-first workflow, TDD, Pest, Vitest, PHPStan, architecture tests, GitHub Actions, CI/CD, atomic deploys, ADRs, technical writing</p>
-<p><strong>Tools:</strong> Git, GitHub, Docker, Postman, Adobe Creative Cloud (Illustrator, Photoshop, InDesign)</p>
+<div class="sec"><p class="cmd" aria-hidden="true"><b>$</b> cat skills.yml</p>
+<h2>Skills</h2></div>
+<dl>
+<dt>back_end:</dt><dd>PHP 8.x, Laravel, Livewire, REST API design, Python, Node.js, MariaDB / MySQL, Redis, queues and scheduling, Meilisearch, websockets</dd>
+<dt>front_end:</dt><dd>TypeScript, JavaScript, Vue 3, Pinia, Nuxt, Alpine.js, Tailwind CSS, SCSS, Three.js, Konva, Vite, UI and UX, accessibility, responsive and multilingual interfaces</dd>
+<dt>architecture:</dt><dd>service-oriented design, SOLID, domain-driven boundaries, event logs and projections, SSO, passkeys (WebAuthn), HMAC request signing, RBAC, anti-corruption layers</dd>
+<dt>delivery:</dt><dd>AI-assisted development (Claude Code), spec-first workflow, TDD, Pest, Vitest, PHPStan, architecture tests, GitHub Actions, CI/CD, atomic deploys, ADRs, technical writing</dd>
+<dt>tools:</dt><dd>Git, GitHub, Docker, Postman, Adobe Creative Cloud (Illustrator, Photoshop, InDesign)</dd>
+</dl>
 </div>
 
 <div class="avoid edu">
-<h2>Education</h2>
+<div class="sec"><p class="cmd" aria-hidden="true"><b>$</b> cat education.md</p>
+<h2>Education</h2></div>
 <p><strong>BSc (Hons) Computing for Digital Media</strong> · University of Sussex. Modules included Software Engineering, Data Structures and Algorithms, Human-Computer Interaction and Web 3D Applications.</p>
 <p><strong>BTEC Level 3 Extended Diploma in IT</strong></p>
 </div>
