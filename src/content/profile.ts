@@ -37,7 +37,7 @@ export const profile = {
   summary:
     'Six years in software and a computer science degree focused on digital media. Most recently, one of two engineers who designed and built a suite of more than twenty Laravel applications that runs an engineering business end to end. Looking for roles in London or remote.',
   approach:
-    'I started out in front-end development and UX, and for the last two years I've worked across the whole stack, from architecture and security to the interfaces people use. That start still shapes how I work: I care about interfaces that are clear and accessible, and about code the next developer can pick up without a guided tour. I write tests first, hold architectural boundaries with automated checks, and document decisions so a small team can move quickly without breaking things.',
+    'I started out in front-end development and UX, and for the last two years I\'ve worked across the whole stack, from architecture and security to the interfaces people use. That start still shapes how I work: I care about interfaces that are clear and accessible, and about code the next developer can pick up without a guided tour. I write tests first, hold architectural boundaries with automated checks, and document decisions so a small team can move quickly without breaking things.',
   cv: '/logan-alleyne-cv.pdf',
 };
 
