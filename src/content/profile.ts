@@ -11,8 +11,8 @@ export interface Role {
   place?: string;
   start: string;
   end: string;
-  // Short display code for the git-log styling; purely decorative.
-  ref: string;
+  // Start month as YYYY-MM; shown as a Unix timestamp in the git-log styling.
+  since: string;
   summary: string;
   highlights?: string[];
   stack?: string;
@@ -55,7 +55,7 @@ export const experience: Role[] = [
     company: 'Aspen Pumps',
     start: 'Jun 2025',
     end: 'now',
-    ref: 'a3f9c21',
+    since: '2025-06',
     summary:
       'Co-developer, in a team of two, of the FrameTech suite: web applications for CRM, enquiries, projects, engineering solution generators, sales and quoting, parts, finance, reporting, tasks, file storage and a helpdesk. Each runs on its own subdomain with its own deploy and its own database, built from the ground up for around 40 users and roughly £50m of business a year.',
     highlights: [
@@ -75,7 +75,7 @@ export const experience: Role[] = [
     place: 'Hove',
     start: 'Feb 2021',
     end: 'Jun 2025',
-    ref: '7be04d8',
+    since: '2021-02',
     summary:
       'Charity-focused templating and brand-management SaaS, in a small team. Led front-end development and design in Vue, Blade, SCSS and Tailwind CSS, with major improvements to UX and accessibility, and contributed to the Laravel, Node.js and MySQL back end. Led template development and ran template production: scheduling, estimating, hiring temporary team members and working directly with clients.',
     stack: 'Vue, Vuex, JavaScript, Node.js, Tailwind CSS, Laravel, PHP, Docker, AWS S3, MySQL',
@@ -86,7 +86,7 @@ export const experience: Role[] = [
     place: 'Brighton',
     start: 'Jul 2020',
     end: 'Dec 2020',
-    ref: '19d6e3a',
+    since: '2020-07',
     summary:
       'Front-end developer across some of the largest video-game journalism sites in the world, including Eurogamer.net, RockPaperShotgun.com and VG247.com. Built features with Django templates, views and models, and worked on the online-only event PAX x EGX.',
     stack: 'Django, Python, WordPress, PHP, Docker',
@@ -97,7 +97,7 @@ export const experience: Role[] = [
     place: 'Brighton',
     start: 'Sep 2019',
     end: 'Jul 2020',
-    ref: '0c41b7e',
+    since: '2019-09',
     summary: 'Assistant editing and technical support in television post-production, in a high-pressure, highly collaborative small team.',
   },
 ];

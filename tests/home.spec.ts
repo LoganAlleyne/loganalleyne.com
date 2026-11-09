@@ -18,6 +18,12 @@ test('shows headline facts about Logan, not the employer', async ({ page }) => {
   await expect(facts).not.toContainText(/£|users|engineers|applications/);
 });
 
+test('labels each role with the Unix timestamp of its start month', async ({ page }) => {
+  const stamps = page.locator('#experience article [data-epoch]');
+  await expect(stamps).toHaveText(['1748736000', '1612137600', '1593561600', '1567296000']);
+  await expect(stamps.first()).toHaveAttribute('title', /1 June 2025/);
+});
+
 test('lists roles in reverse chronological order', async ({ page }) => {
   const roles = page.locator('#experience article h3');
   await expect(roles).toHaveText([/Aspen Pumps/, /BrandStencil/, /ReedPop/, /The Edit_/]);

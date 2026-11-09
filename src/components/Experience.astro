@@ -1,6 +1,7 @@
 ---
 import Section from './Section.astro';
 import { experience, education } from '../content/profile';
+import { monthStartEpoch, monthStartLabel } from '../lib/epoch';
 ---
 
 <Section id="experience" command="git log --author=logan" title="Experience">
@@ -9,7 +10,7 @@ import { experience, education } from '../content/profile';
       experience.map((r) => (
         <article class="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
           <p class="font-mono text-xs text-mute sm:pt-1">
-            <span class="text-acc" aria-hidden="true">{r.ref}</span>
+            <span class="text-acc" aria-hidden="true" data-epoch title={`Unix time for ${monthStartLabel(r.since)}`}>{monthStartEpoch(r.since)}</span>
             <br class="hidden sm:block" />
             <span class="sm:hidden" aria-hidden="true"> · </span>
             {r.start} – {r.end}
