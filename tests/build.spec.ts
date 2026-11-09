@@ -36,15 +36,19 @@ test('published case studies carry no draft banner', async ({ page }) => {
   }
 });
 
-test('published case studies pass WCAG 2.2 AA checks in both themes', async ({ page }) => {
+test('published case studies pass WCAG 2.2 AA checks in both themes', async ({ browser }) => {
+  // Reduced motion settles the fade-in and cursor blink, so contrast is measured on final colours.
+  const ctx = await browser.newContext({ baseURL: 'http://localhost:4321', reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
   for (const slug of published) {
     for (const theme of ['dark', 'light']) {
       await page.goto(`/work/${slug}/`);
       await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
-      expect(results.violations.map((v) => `${v.id}: ${v.help}`), `${slug} (${theme})`).toEqual([]);
+      expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(', ')}`), `${slug} (${theme})`).toEqual([]);
     }
   }
+  await ctx.close();
 });
 
 test('any draft case study stays out of the build and the sitemap', async ({ request }) => {
