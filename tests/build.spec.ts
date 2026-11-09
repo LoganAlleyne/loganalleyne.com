@@ -33,3 +33,15 @@ test('a draft case study URL returns 404 in production', async ({ request }) => 
     expect(res.status()).toBe(404);
   }
 });
+
+test('the private email address is not published', () => {
+  const textFiles = (dir: string): string[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) return textFiles(p);
+      return /\.(html|xml|txt|js|css|json)$/.test(e.name) ? [p] : [];
+    });
+  for (const file of [...textFiles(dist), 'scripts/cv/cv.html']) {
+    expect(readFileSync(file, 'utf8'), file).not.toContain('outlook.com');
+  }
+});
