@@ -9,11 +9,13 @@ test('introduces Logan', async ({ page }) => {
   await expect(page.getByText(/London or remote/i).first()).toBeVisible();
 });
 
-test('shows headline facts from the CV', async ({ page }) => {
+test('shows headline facts about Logan, not the employer', async ({ page }) => {
   const facts = page.getByRole('list', { name: /headline facts/i });
-  for (const value of ['20+', '~40', '~£50m', '2', '93%']) {
+  await expect(facts.locator('li')).toHaveCount(5);
+  for (const value of ['6 yrs', 'TDD', 'WCAG', '93%', '31']) {
     await expect(facts.getByText(value, { exact: true })).toBeVisible();
   }
+  await expect(facts).not.toContainText(/£|users|engineers|applications/);
 });
 
 test('lists roles in reverse chronological order', async ({ page }) => {

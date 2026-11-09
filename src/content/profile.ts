@@ -42,11 +42,11 @@ export const profile = {
 };
 
 export const facts: Fact[] = [
-  { value: '20+', label: 'applications and services' },
-  { value: '~40', label: 'users' },
-  { value: '~£50m', label: 'business a year' },
-  { value: '2', label: 'engineers' },
+  { value: '6 yrs', label: 'in software' },
+  { value: 'TDD', label: 'tests before code' },
+  { value: 'WCAG', label: 'accessible by default' },
   { value: '93%', label: 'average test coverage' },
+  { value: '31', label: 'primed & unpainted miniatures' },
 ];
 
 export const experience: Role[] = [
