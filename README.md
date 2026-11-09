@@ -1,6 +1,6 @@
 # loganalleyne.com
 
-Personal site for Logan Alleyne, a full-stack software engineer. Built as a static Astro site with Tailwind CSS, hosted on Netlify.
+Personal site for Me, a full-stack software engineer. Built as a static Astro site with Tailwind CSS, hosted on Netlify.
 
 ## Run it
 
@@ -31,9 +31,3 @@ npm run check                      # Astro and TypeScript checks
 | `scripts/og/` | The social preview image (`npm run og:image`) |
 | `public/_headers` | Security and cache headers for Netlify |
 | `docs/deploy.md` | How to deploy, switch the domain over and roll back |
-
-## Content rules
-
-- Every fact comes from the master CV, or from the engineering playbook for the case studies.
-- Use British English.
-- FrameTech is always one word, with a capital F and T.
